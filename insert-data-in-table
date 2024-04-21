@@ -1,0 +1,28 @@
+import json
+import mysql.connector
+
+def lambda_handler(event, context):
+    cnx = mysql.connector.connect(
+	host = "test-db-1.cheok4m64sssaaxbu5.us-east-1.rds.amazonaws.com",
+	user = "admin",
+	password = "92989381",
+	database = "mydbname",
+    )
+    cursor = cnx.cursor()
+    
+    table_exits_query = "SHOW TABLES LIKE 'cool_users'"
+    cursor.execute(table_exits_query)
+    table_exits = cursor.fetchone()
+    if not table_exits:
+    	create_table_query = "CREATE TABLE cool_users (Id int NOT NULL AUTO_INCREMENT,Username char(255) NOT NULL,Password varchar(25) NOT NULL,PRIMARY KEY (Id))"
+    	cursor.execute(create_table_query)
+    	cnx.commit()
+    insert_query = f"INSERT INTO cool_users (username, password) VALUES ('nil', 'abc@123')"
+    cursor.execute(insert_query)
+    cursor.close()
+    cnx.close()
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hello from Lambda!')
+    }
