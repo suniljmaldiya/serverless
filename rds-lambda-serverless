@@ -5,9 +5,9 @@ import mysql.connector
 
 def lambda_handler(event, context):
     cnx = mysql.connector.connect(
-	host = "test-db-1.cheok4m64bu5.us-east-1.rds.amazonaws.com",
+	host = "test-db-1.cheok4m64bddu5.us-east-1.rds.amazonaws.com",
 	user = "admin",
-	password = "9166884976"
+	password = "9128013"
     )
     cursor = cnx.cursor()
     db_name = "mydbname"
