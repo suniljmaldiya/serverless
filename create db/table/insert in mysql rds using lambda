@@ -1,0 +1,22 @@
+#install mysql.connector using pip install mysql-connector-python==8.0.26 -t .
+
+import json
+import mysql.connector
+
+def lambda_handler(event, context):
+    cnx = mysql.connector.connect(
+	host = "test-db-1.cheok4m64bu5.us-east-1.rds.amazonaws.com",
+	user = "admin",
+	password = "9166884976"
+    )
+    cursor = cnx.cursor()
+    db_name = "mydbname"
+    create_db_query = f"CREATE DATABASE IF NOT EXISTS {db_name}"
+    cursor.execute(create_db_query)
+    cursor.close()
+    cnx.close()
+    
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Hello from Lambda!')
+    }
